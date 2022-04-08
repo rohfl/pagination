@@ -1,8 +1,10 @@
-package com.rohfl.pagination;
+package com.rohfl.pagination.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.rohfl.pagination.R;
 
 public class MainActivity extends AppCompatActivity {
 
