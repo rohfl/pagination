@@ -16,9 +16,25 @@ android {
     }
 
     buildTypes {
-        release {
+        debug {
+            signingConfig signingConfigs.debug
             minifyEnabled false
+            shrinkResources false
+            proguardFile 'proguard-rules.pro'
+            zipAlignEnabled false
+            buildConfigField 'String', 'BASE_URL', '"https://jsonplaceholder.typicode.com/albums/"'
+        }
+        release {
+            minifyEnabled true
+            shrinkResources false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField 'String', 'BASE_URL', '"https://jsonplaceholder.typicode.com/albums/"'
+            lintOptions {
+                disable 'MissingTranslation'
+                checkReleaseBuilds false
+                abortOnError false
+            }
+
         }
     }
     compileOptions {
@@ -40,4 +56,8 @@ dependencies {
     implementation 'com.squareup.retrofit2:retrofit:2.3.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
     implementation 'com.google.code.gson:gson:2.8.8'
+
+    //glide
+    implementation 'com.github.bumptech.glide:glide:4.12.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.12.0'
 }
