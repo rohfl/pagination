@@ -4,10 +4,12 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/RohitFiles/Projects/Personal/Pagination/app/src/main/res/drawable/bg_login_btn.xml" value="0.189" />
-        <entry key="..\:/RohitFiles/Projects/Personal/Pagination/app/src/main/res/layout/activity_dashboard.xml" value="0.1" />
+        <entry key="..\:/RohitFiles/Projects/Personal/Pagination/app/src/main/res/layout/activity_dashboard.xml" value="0.264" />
         <entry key="..\:/RohitFiles/Projects/Personal/Pagination/app/src/main/res/layout/activity_main.xml" value="0.10989583333333333" />
         <entry key="..\:/RohitFiles/Projects/Personal/Pagination/app/src/main/res/layout/activity_splash_screen.xml" value="0.2" />
         <entry key="..\:/RohitFiles/Projects/Personal/Pagination/app/src/main/res/layout/actvity_login.xml" value="0.2" />
+        <entry key="..\:/RohitFiles/Projects/Personal/Pagination/app/src/main/res/layout/item_image_data.xml" value="0.1765625" />
+        <entry key="..\:/RohitFiles/Projects/Personal/Pagination/app/src/main/res/layout/item_list_loading.xml" value="0.1765625" />
       </map>
     </option>
   </component>

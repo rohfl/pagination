@@ -20,4 +20,12 @@
         <item name="boxStrokeColor">@color/black</item>
         <item name="boxStrokeWidth">1dp</item>
     </style>
+
+    <style name="ProgressTheme">
+        <item name="colorAccent">@color/black</item>
+    </style>
+
+    <style name="RecyclerTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/grey</item>
+    </style>
 </resources>

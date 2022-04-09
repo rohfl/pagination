@@ -121,7 +121,7 @@ public class LoginActivity extends AppCompatActivity {
             if(password.length() == 0) {
                 showToast("Please enter your password");
             } else {
-                showToast("Please enter a valid password");
+                showToast("Please must contain letter AND numbers and greater than 8 characters");
             }
             return false;
         }
