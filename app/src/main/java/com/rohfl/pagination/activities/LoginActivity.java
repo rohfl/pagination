@@ -115,7 +115,7 @@ public class LoginActivity extends AppCompatActivity {
             if(email.length() == 0) {
                 showToast("Please enter your email");
             } else {
-                showToast("Please enter correct email");
+                showToast("Please enter a valid email");
             }
             return false;
         }
