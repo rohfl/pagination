@@ -11,7 +11,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
 import com.rohfl.pagination.R;
 import com.rohfl.pagination.listeners.OnClickListener;
 import com.rohfl.pagination.listeners.OnLastItemScrolledListener;
@@ -84,7 +83,7 @@ public class ImageListAdapter extends RecyclerView.Adapter<ImageListAdapter.Main
 
     /**
      * adds the data in the list
-     * @param mList the iamges list
+     * @param mList the images list
      */
     public void updateList(List<ResponseGetImageListItem> mList) {
         int oldSize = this.mList.size();

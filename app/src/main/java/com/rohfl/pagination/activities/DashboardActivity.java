@@ -9,6 +9,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -18,6 +19,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.res.ResourcesCompat;
@@ -40,6 +42,7 @@ import retrofit2.Response;
 
 public class DashboardActivity extends AppCompatActivity implements OnClickListener {
 
+    TextView txtScrollToTop;
     ImageView imgUser;
     RecyclerView rvImages;
     ImageListAdapter adapter;
@@ -56,6 +59,7 @@ public class DashboardActivity extends AppCompatActivity implements OnClickListe
         updateStatusBarColorMain();
 
         // getting all the views
+        txtScrollToTop = findViewById(R.id.txt_scroll_to_top);
         imgUser = findViewById(R.id.img_user);
         rvImages = findViewById(R.id.rv_images);
         progressBar = findViewById(R.id.progress);
@@ -72,13 +76,10 @@ public class DashboardActivity extends AppCompatActivity implements OnClickListe
                 if (checkNetworkConnection()) {
                     getImages();
                 } else {
-                    showToast("No Internet, Please check your network connection");
+                    showToast();
                 }
             }
         });
-
-        // setting the click listener
-        adapter.setOnClickListener(this);
 
         attachListeners();
 
@@ -86,7 +87,7 @@ public class DashboardActivity extends AppCompatActivity implements OnClickListe
         if (checkNetworkConnection()) {
             getImages();
         } else {
-            showToast("No Internet, Please check your network connection");
+            showToast();
         }
     }
 
@@ -95,6 +96,30 @@ public class DashboardActivity extends AppCompatActivity implements OnClickListe
      */
     private void attachListeners() {
         imgUser.setOnClickListener(v -> showLogoutDialog());
+
+        // if the user press scroll to top then scroll the recycler view to the top;
+        txtScrollToTop.setOnClickListener(v -> rvImages.smoothScrollToPosition(0));
+
+        // adding scroll listener to recycler view to show and hide the scroll to top action
+        rvImages.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                if (dy > 0) {
+                    new Handler().postDelayed(() -> txtScrollToTop.setVisibility(View.GONE), 1000);
+                } else if (dy < 0) {
+                    new Handler().postDelayed(() -> txtScrollToTop.setVisibility(View.VISIBLE), 1000);
+                }
+            }
+            @Override
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+                    new Handler().postDelayed(() -> txtScrollToTop.setVisibility(View.GONE), 1000);
+                }
+            }
+        });
+
+        // setting the click listener
+        adapter.setOnClickListener(this);
     }
 
     /**
@@ -108,7 +133,7 @@ public class DashboardActivity extends AppCompatActivity implements OnClickListe
         Call<List<ResponseGetImageListItem>> call = api.getImageList(albumId);
         call.enqueue(new Callback<List<ResponseGetImageListItem>>() {
             @Override
-            public void onResponse(Call<List<ResponseGetImageListItem>> call, Response<List<ResponseGetImageListItem>> response) {
+            public void onResponse(@NonNull Call<List<ResponseGetImageListItem>> call, @NonNull Response<List<ResponseGetImageListItem>> response) {
                 try {
                     if (response.code() == 200 && response.body() != null) {
                         if (albumId == 1) progressBar.setVisibility(View.GONE);
@@ -127,7 +152,7 @@ public class DashboardActivity extends AppCompatActivity implements OnClickListe
             }
 
             @Override
-            public void onFailure(Call<List<ResponseGetImageListItem>> call, Throwable t) {
+            public void onFailure(@NonNull Call<List<ResponseGetImageListItem>> call, @NonNull Throwable t) {
                 if (albumId == 1) progressBar.setVisibility(View.GONE);
                 t.printStackTrace();
             }
@@ -192,10 +217,10 @@ public class DashboardActivity extends AppCompatActivity implements OnClickListe
     }
 
     /**
-     * method to show a toast message
+     * method to show no internet toast message
      */
-    private void showToast(String message) {
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    private void showToast() {
+        Toast.makeText(this, "No Internet, Please check your network connection", Toast.LENGTH_SHORT).show();
     }
 
     /**
