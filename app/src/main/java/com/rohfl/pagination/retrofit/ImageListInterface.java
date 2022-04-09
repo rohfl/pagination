@@ -1,6 +1,5 @@
 package com.rohfl.pagination.retrofit;
 
-import com.rohfl.pagination.models.ResponseGetImageList;
 import com.rohfl.pagination.models.ResponseGetImageListItem;
 
 import java.util.List;
